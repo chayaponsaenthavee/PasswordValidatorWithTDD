@@ -5,6 +5,8 @@ public class PasswordValidator {
     /**
      * คุณจะต้องเขียน Javadoc ที่สมบูรณ์ที่นี่ในอนาคต
      * เพื่ออธิบายกฎการทำงานของเมธอด
+     * มีการกำหนดตัวอักษรพิมพ์ใหญ่เล็ก,ตัวเลขเเละอักษรพิเศษ
+     * ตัวคำสั่งคือเอาทั้งตัวอักษร,เลขเเละอักษรพิเศษกำหนดเป็นcountคือนำมาใส่ให้หมดทุกๆตัวเเละกำหนดให้4ตัวเป็นSTRONGเเละ3ตัวเป็นMEDIUMส่วน2กับ1เป็นWEAK
      * @param   รับค่ารหัสผ่านที่ต้องการตรวจสอบ
      * @return  ส่งค่าระดับ PasswordStrength ตามเกณฑ์ที่กำหนด
      */
@@ -39,11 +41,16 @@ public class PasswordValidator {
             }
         }
     
+        int count = 0;
+        if(hasLower)count++;
+        if(hasUpper)count++;
+        if(hasDigit)count++;
+        if(hasSpecial)count++;
+        
 
-
-        if (hasLower && hasUpper && hasDigit && hasSpecial ) {
+        if (count == 4) {
             return PasswordStrength.STRONG;
-        } else if (hasLower && hasUpper && hasDigit) {
+        } else if (count == 3) {
             return PasswordStrength.MEDIUM;
         } else {
             return PasswordStrength.WEAK;// TODO: การคืนค่านี้ถูกต้องหรือไม่?
